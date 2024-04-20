@@ -1,0 +1,11 @@
+id: test-sign
+type: list
+info:
+  name: Test
+  tech: common
+requests:
+- method: GET
+  url: /index.php
+  body: page=12
+  detections:
+  - StatusCode() == 200 && StringSearch("response", "page")

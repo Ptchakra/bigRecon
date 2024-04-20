@@ -1,0 +1,11 @@
+id: git-leak
+type: list
+info:
+  name: Git Leak
+  risk: Medium
+  tech: common
+requests:
+- method: GET
+  url: '{{.BaseURL}}/.git/config'
+  detections:
+  - StatusCode() == 200 && StringSearch("response", "refs/head")

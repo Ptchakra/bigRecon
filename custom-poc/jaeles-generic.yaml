@@ -1,0 +1,25 @@
+id: generic-check-01
+info:
+  name: Generic Check
+  risk: Info
+params:
+  # - dest: "{{.oob}}"
+variables:
+  - path: |
+      test.php
+      info.php
+      check.php
+
+requests:
+  - method: GET
+    redirect: true
+    url: >-
+     {{.BaseURL}}/{{.path}}
+    headers:
+      - User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55.0
+      - Content-Type: application/x-www-form-urlencoded
+      - Referer: '{{.BaseURL}}'
+      - X-Forwarded-For: 127.0.0.1
+    detections:
+      - >-
+        StatusCode()==200 && StringSearch("response", "phpinfo")

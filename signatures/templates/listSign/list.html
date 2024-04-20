@@ -1,0 +1,231 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+All Signatures
+{% endblock title %}
+
+{% block custom_js_css_link %}
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/datatables.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/dt-global_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/custom_dt_custom.css' %}">
+<script src="{% static 'plugins/sweetalerts/promise-polyfill.js' %}"></script>
+<link href="{% static 'plugins/sweetalerts/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'plugins/sweetalerts/sweetalert.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/css/components/custom-sweetalert.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/css/components/custom-modal.css' %}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+All Signatures for Vulnerability Scan
+{% endblock breadcrumb_title %}
+
+{% block main_content %}
+<div class="col-lg-12 layout-spacing">
+  <div class="col-lg-12">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+            <h4 class="d-inline-block">All Signatures</h4>
+            <div class="d-inline-block float-right pt-2">
+              <button type="button" class="btn btn-primary" onclick="reloadSign()">Reload All Signature</button>
+              <button type="button" class="btn btn-danger" onclick="deleteAll()">Delete All Signature</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area">
+        <div class="table-responsive mb-4">
+          <table id="signatures-list" class="table style-2 table-hover">
+            <thead>
+              <tr>
+                <!-- <th class="checkbox-column">Serial Number</th> -->
+                <th>Id</th>
+                <th>Name</th>
+                <th>Severity</th>
+                <th>Type</th>
+                <th>Target for</th>
+                <th>References</th>
+                <th class="text-center">Last Modified</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}
+
+
+{% block page_level_script %}
+<script src="{% static 'custom/custom.js' %}"></script>
+<script src="{% static 'listSign/js/custom_list_sign.js' %}"></script>
+<script src="{% static 'targetApp/js/custom_domain.js' %}"></script>
+<script src="{% static 'plugins/table/datatable/datatables.js' %}"></script>
+<script src="{% static 'plugins/sweetalerts/sweetalert2.min.js' %}"></script>
+<script src="{% static 'plugins/sweetalerts/custom-sweetalert.js' %}"></script>
+<script>
+table = $('#signatures-list').DataTable({
+    "oLanguage": {
+      "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+      "sInfo": "Showing page _PAGE_ of _PAGES_",
+      "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+      "sSearchPlaceholder": "Search...",
+      "sLengthMenu": "Results :  _MENU_",
+    },
+    "stripeClasses": [],
+    "lengthMenu": [5, 10, 20, 50, 100],
+    "pageLength": 20,
+    'serverSide': true,
+    "ajax": '/signatures/api/signatures/?format=datatables',
+    "order": [[ 6, "desc" ]],
+    "columns": [
+      {'data': 'sign_id'},
+      {'data': 'sign_name'},
+      {'data': 'severity'},
+      {'data': 'type_sign'},
+      {'data': 'target_for'},
+      {'data': 'description'},
+      {'data': 'last_modified', 'searchable': false},
+      {'data': 'sign_id'}
+    ],
+    "columnDefs": [
+      {
+        "render": function ( data, type, row ) {
+          switch (data) {
+            case 0:
+              return "<span class='badge badge-primary'>Info</span>";
+            case 1:
+              return "<span class='badge badge-sign-low'>Low</span>";
+            case 2:
+              return "<span class='badge badge-warning'>Medium</span>";
+            case 3:
+              return "<span class='badge badge-danger'>High</span>";
+            case 4:
+              return "<span class='badge badge-sign-critical'>Critical</span>";
+            default:
+              return "";
+          }
+        },
+        "targets": 2,
+      },
+      {
+        "render": function ( data, type, row ) {
+          return span_values(data);
+        },
+        "targets": 4,
+      },
+      {
+        "render": function ( data, type, row ) {
+          switch (data) {
+            case 0:
+              return "<span class='badge badge-dark bg-dark'>List</span>";
+            case 1:
+              return "<span class='badge badge-dark bg-secondary'>Fuzz</span>";
+            case 2:
+              return "<span class='badge badge-dark bg-info'>Routine</span>";
+            default:
+              return "";
+          }
+        },
+        "targets": 3,
+      },
+      {
+        "render": function ( data, type, row ) {
+          if (data) {
+            return link_values(data);
+          }
+          return "";
+        },
+        "targets": 5,
+      },
+      {
+        "render": function ( data, type, row ) {
+          return create_action(data);
+        },
+        "targets": 7,
+      }
+    ],
+    drawCallback: function () {
+      $('.t-dot').tooltip({ template: '<div class="tooltip status" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' })
+      $('.dataTables_wrapper table').removeClass('table-striped');
+      $('.badge').tooltip({ template: '<div class="tooltip status" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' })
+      $('.dataTables_wrapper table').removeClass('table-striped');
+    },
+    initComplete: function( settings, json ) {
+      var script = document.createElement("script");
+      script.src = "/staticfiles/plugins/treeview/custom-jstree.js";
+      script.type = "text/javascript";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+});
+multiCheck(table);
+// span values function will seperate the values by comma and put badge around it
+function span_values(data)
+{
+  var badge = "<span class='badge badge-pill badge-info m-1 text-dark'>";
+  var data_with_span ="";
+  if (data) {
+    data.split(/\s*,\s*/).forEach(function(split_vals) {
+      data_with_span+=badge + split_vals + "</span>";
+    });
+  }
+  return data_with_span;
+}
+
+function link_values(data)
+{
+  var data_with_link = "<div width='15%'>";
+  if (data) {
+    data.split(/\s*,\s*/).forEach(function(split_vals) {
+      data_with_link += `<a href="`+split_vals+`" class="text-info" target="_blank">`+truncate(split_vals,25)+`</a><br>`;
+    });
+  }
+  return data_with_link + '</div>';
+}
+
+function create_action(sign_id) 
+{
+  return `<a href="/signatures/edit/${sign_id}" class="bs-tooltip open-domain" data-placement="top" title="" data-original-title="Update target">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather table-edit feather-edit-2">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                      </svg>
+                    </a>
+                    <a onclick="deleteSign('${sign_id}')" class="bs-tooltip btnDelDomain" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete target">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather table-delete feather-x-circle">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                      </svg>
+                    </a>`
+  
+}
+
+function truncate(str, n){
+  return (str.length > n) ? str.substr(0, n-1) + '&hellip;' : str;
+};
+// // Handle form submission event
+// $('#frm-example').on('submit', function(e){
+//   var form = this;
+
+//   table.$('input[type="checkbox"]').each(function(){
+//     if(!$.contains(document, this)){
+//       if(this.checked){
+//         $(form).append(
+//           $('<input>')
+//           .attr('type', 'hidden')
+//           .attr('name', this.name)
+//           .val(this.value)
+//         );
+//       }
+//     }
+//   });
+//   e.preventDefault();
+// });
+</script>
+{% endblock page_level_script %}

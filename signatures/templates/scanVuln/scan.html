@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Scan Vulnerable For URL
+{% endblock title %}
+
+
+{% block custom_js_css_link %}
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+Add target for recon
+{% endblock breadcrumb_title %}
+
+{% block main_content %}
+<div class="col-lg-12 layout-spacing">
+    <div class="statbox widget box box-shadow">
+        <div class="widget-header">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Scan</h4>
+                </div>
+            </div>
+        </div>
+        <div class="widget-content widget-content-area">
+                <form class="simple-example" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-md-6 mb-4">
+                        <label for="domainName">URL</label>
+                        {{ form.url }}
+                        {% if form.errors %}
+                            <div class="invalid-feedback" style="display: block;">
+                                {{ form.errors.url|striptags }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="domainDescription">Signature File</label>
+                        {{ form.signature_file }}
+                    </div>
+                </div>
+                <button class="btn btn-primary submit-fn mt-2 float-right" type="submit">Do Scan</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+
+{% block page_level_script %}
+<script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+{% endblock page_level_script %}

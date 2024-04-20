@@ -1,0 +1,24 @@
+id: Generic-Check-Critical
+
+info:
+  name: Generic Critical Check
+  author: Mr.X
+  severity: Critical
+  description: Searches for the pattern
+
+requests:
+  
+  - method: GET
+    path:
+      - '{{BaseURL}}/info.php'
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55
+      X-Fowarded-For: 127.0.0.1
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        words:
+          - 'phpinfo'

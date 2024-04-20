@@ -1,0 +1,19 @@
+id: test
+type: list
+donce: true
+info:
+  name: Test Signature
+  confidence: Sure
+  os: Linux
+  tech: nginx
+payloads:
+- test
+- test1
+requests:
+- method: GET
+  path:
+  - /index.php
+  headers:
+  - Content-Type: text
+  detections:
+  - StatusCode() == 200 && StringSearch("response", "refs")

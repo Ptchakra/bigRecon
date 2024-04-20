@@ -1,0 +1,21 @@
+id: php-path-traversal
+info:
+  name: PHP Path Traversal
+  risk: high
+  confidence: Tentative
+  tech: php,PHP
+
+params:
+  - root: "{{.BaseURL}}"
+
+requests:
+  - method: GET
+    redirect: false
+    url: >-
+      {{.root}}?file=/etc/passwd
+    headers:
+      - User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55
+    detections:
+      - >-
+        StatusCode() == 200
+

@@ -1,0 +1,192 @@
+[waf-detect:nginxgeneric] [http] [info] https://cuuam.vnggames.com/
+[tech-detect:bootstrap] [http] [info] https://cuuam.vnggames.com/
+[tech-detect:google-font-api] [http] [info] https://cuuam.vnggames.com/
+[tech-detect:nginx] [http] [info] https://cuuam.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] http://samuraiera.vnggames.com/
+[tech-detect:font-awesome] [http] [info] http://samuraiera.vnggames.com/
+[tech-detect:express] [http] [info] http://samuraiera.vnggames.com/
+[tech-detect:nginx] [http] [info] http://samuraiera.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://app.support.vnggames.com/
+[tech-detect:nginx] [http] [info] https://app.support.vnggames.com/
+[tech-detect:nginx] [http] [info] https://app-api.support.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://app-api.support.vnggames.com/
+[tech-detect:nginx] [http] [info] https://api.support.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://api.support.vnggames.com/
+[robots-txt] [http] [info] https://row.vnggames.com/robots.txt
+[waf-detect:nginxgeneric] [http] [info] https://row.vnggames.com/
+[tech-detect:google-font-api] [http] [info] https://row.vnggames.com/
+[tech-detect:nginx] [http] [info] https://row.vnggames.com/
+[tech-detect:font-awesome] [http] [info] https://samurai.vnggames.com/
+[tech-detect:express] [http] [info] https://samurai.vnggames.com/
+[tech-detect:nginx] [http] [info] https://samurai.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://samurai.vnggames.com/
+[tech-detect:google-tag-manager] [http] [info] https://pubgm.vnggames.com/
+[tech-detect:nginx] [http] [info] https://pubgm.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://pubgm.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://aura.vnggames.com/
+[tech-detect:apache] [http] [info] https://aura.vnggames.com/
+[apache-version-detect] [http] [info] https://aura.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://sky.vnggames.com/
+[tech-detect:apache] [http] [info] https://sky.vnggames.com/
+[tech-detect:php] [http] [info] https://sky.vnggames.com/
+[apache-version-detect] [http] [info] https://sky.vnggames.com [Apache]
+[robots-txt] [http] [info] https://tieungao.vnggames.com/robots.txt
+[waf-detect:nginxgeneric] [http] [info] https://tieungao.vnggames.com/
+[tech-detect:google-font-api] [http] [info] https://tieungao.vnggames.com/
+[tech-detect:nginx] [http] [info] https://tieungao.vnggames.com/
+[tech-detect:font-awesome] [http] [info] https://samkokarena.vnggames.com/
+[tech-detect:express] [http] [info] https://samkokarena.vnggames.com/
+[tech-detect:nginx] [http] [info] https://samkokarena.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://samkokarena.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://perfectworld.vnggames.com/
+[tech-detect:apache] [http] [info] https://perfectworld.vnggames.com/
+[tech-detect:php] [http] [info] https://perfectworld.vnggames.com/
+[apache-version-detect] [http] [info] https://perfectworld.vnggames.com [Apache]
+[waf-detect:nginxgeneric] [http] [info] https://ridmeedsun.vnggames.com/
+[tech-detect:nginx] [http] [info] https://ridmeedsun.vnggames.com/
+[tech-detect:bootstrap] [http] [info] http://tkcm.vnggames.com/
+[tech-detect:express] [http] [info] http://tkcm.vnggames.com/
+[tech-detect:nginx] [http] [info] http://tkcm.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] http://tkcm.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] http://tndt3q.vnggames.com/
+[tech-detect:font-awesome] [http] [info] http://tndt3q.vnggames.com/
+[tech-detect:express] [http] [info] http://tndt3q.vnggames.com/
+[tech-detect:nginx] [http] [info] http://tndt3q.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://musth.vnggames.com/
+[tech-detect:nginx] [http] [info] https://musth.vnggames.com/
+[tech-detect:nginx] [http] [info] https://tool-api.support.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://tool-api.support.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://pwsea.vnggames.com/
+[tech-detect:apache] [http] [info] https://pwsea.vnggames.com/
+[tech-detect:php] [http] [info] https://pwsea.vnggames.com/
+[apache-version-detect] [http] [info] https://pwsea.vnggames.com [Apache]
+[robots-txt] [http] [info] https://cuuam3d.vnggames.com/robots.txt
+[waf-detect:nginxgeneric] [http] [info] https://cuuam3d.vnggames.com/
+[tech-detect:google-font-api] [http] [info] https://cuuam3d.vnggames.com/
+[tech-detect:nginx] [http] [info] https://cuuam3d.vnggames.com/
+[waf-detect:shadowd] [http] [info] https://policy.mussea.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://policy.mussea.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://policy.mussea.vnggames.com/
+[tech-detect:nginx] [http] [info] https://policy.mussea.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://samuraishodown.vnggames.com/
+[tech-detect:apache] [http] [info] https://samuraishodown.vnggames.com/
+[tech-detect:php] [http] [info] https://samuraishodown.vnggames.com/
+[apache-version-detect] [http] [info] https://samuraishodown.vnggames.com [Apache]
+[waf-detect:nginxgeneric] [http] [info] https://policy.musth.vnggames.com/
+[tech-detect:font-awesome] [http] [info] https://policy.musth.vnggames.com/
+[tech-detect:nginx] [http] [info] https://policy.musth.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://landing.mussea.vnggames.com/
+[tech-detect:nginx] [http] [info] https://landing.mussea.vnggames.com/
+[apache-version-detect] [http] [info] https://nsbl.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://nsbl.vnggames.com/
+[robots-txt] [http] [info] https://thiennu.vnggames.com/robots.txt
+[tech-detect:apache] [http] [info] https://nsbl.vnggames.com/
+[tech-detect:php] [http] [info] https://nsbl.vnggames.com/
+[tech-detect:google-font-api] [http] [info] https://thiennu.vnggames.com/
+[tech-detect:nginx] [http] [info] https://thiennu.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://thiennu.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://ttn.vnggames.com/
+[tech-detect:apache] [http] [info] https://ttn.vnggames.com/
+[tech-detect:php] [http] [info] https://ttn.vnggames.com/
+[tech-detect:apache] [http] [info] https://ttlm.vnggames.com/
+[tech-detect:php] [http] [info] https://ttlm.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://ttlm.vnggames.com/
+[apache-version-detect] [http] [info] https://ttlm.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://palacegame.vnggames.com/
+[tech-detect:apache] [http] [info] https://palacegame.vnggames.com/
+[tech-detect:php] [http] [info] https://palacegame.vnggames.com/
+[apache-version-detect] [http] [info] https://palacegame.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://mobilelegends.vnggames.com/
+[tech-detect:apache] [http] [info] https://mobilelegends.vnggames.com/
+[tech-detect:php] [http] [info] https://mobilelegends.vnggames.com/
+[apache-version-detect] [http] [info] https://mobilelegends.vnggames.com [Apache]
+[waf-detect:nginxgeneric] [http] [info] https://support.vnggames.com/
+[tech-detect:google-font-api] [http] [info] https://support.vnggames.com/
+[tech-detect:nginx] [http] [info] https://support.vnggames.com/
+[waf-detect:nginxgeneric] [http] [info] https://tool.support.vnggames.com/
+[tech-detect:nginx] [http] [info] https://tool.support.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://hoangcung2.vnggames.com/
+[tech-detect:apache] [http] [info] https://hoangcung2.vnggames.com/
+[tech-detect:php] [http] [info] https://hoangcung2.vnggames.com/
+[apache-version-detect] [http] [info] https://hoangcung2.vnggames.com [Apache]
+[tech-detect:apache] [http] [info] http://th.kofas.vnggames.com/
+[tech-detect:php] [http] [info] http://th.kofas.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] http://th.kofas.vnggames.com/
+[apache-version-detect] [http] [info] http://th.kofas.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://ttd.vnggames.com/
+[tech-detect:google-tag-manager] [http] [info] https://ttd.vnggames.com/
+[tech-detect:google-font-api] [http] [info] https://ttd.vnggames.com/
+[tech-detect:apache] [http] [info] https://ttd.vnggames.com/
+[tech-detect:php] [http] [info] https://ttd.vnggames.com/
+[apache-version-detect] [http] [info] https://ttd.vnggames.com [Apache]
+[tech-detect:apache] [http] [info] https://hoangcung.vnggames.com/
+[tech-detect:php] [http] [info] https://hoangcung.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://hoangcung.vnggames.com/
+[apache-version-detect] [http] [info] https://hoangcung.vnggames.com [Apache]
+[tech-detect:apache] [http] [info] https://nshc.vnggames.com/
+[tech-detect:php] [http] [info] https://nshc.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://nshc.vnggames.com/
+[apache-version-detect] [http] [info] https://nshc.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] http://ph.kofas.vnggames.com/
+[tech-detect:apache] [http] [info] http://ph.kofas.vnggames.com/
+[tech-detect:php] [http] [info] http://ph.kofas.vnggames.com/
+[apache-version-detect] [http] [info] http://ph.kofas.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://neverland.vnggames.com/
+[tech-detect:apache] [http] [info] https://neverland.vnggames.com/
+[tech-detect:php] [http] [info] https://neverland.vnggames.com/
+[apache-version-detect] [http] [info] https://neverland.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://gunpow.vnggames.com/
+[tech-detect:apache] [http] [info] https://gunpow.vnggames.com/
+[tech-detect:php] [http] [info] https://gunpow.vnggames.com/
+[apache-version-detect] [http] [info] https://gunpow.vnggames.com [Apache]
+[tech-detect:apache] [http] [info] https://liethoa.vnggames.com/
+[tech-detect:php] [http] [info] https://liethoa.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://liethoa.vnggames.com/
+[apache-version-detect] [http] [info] https://liethoa.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://mua.vnggames.com/
+[tech-detect:recaptcha] [http] [info] https://mua.vnggames.com/
+[tech-detect:apache] [http] [info] https://mua.vnggames.com/
+[tech-detect:php] [http] [info] https://mua.vnggames.com/
+[apache-version-detect] [http] [info] https://mua.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://vnggames.com/
+[tech-detect:apache] [http] [info] https://vnggames.com/
+[tech-detect:php] [http] [info] https://vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://godbattle.vnggames.com/
+[tech-detect:apache] [http] [info] https://godbattle.vnggames.com/
+[tech-detect:php] [http] [info] https://godbattle.vnggames.com/
+[apache-version-detect] [http] [info] https://godbattle.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://ngoisao.vnggames.com/
+[tech-detect:apache] [http] [info] https://ngoisao.vnggames.com/
+[tech-detect:php] [http] [info] https://ngoisao.vnggames.com/
+[apache-version-detect] [http] [info] https://ngoisao.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://cungdaum.vnggames.com/
+[tech-detect:apache] [http] [info] https://cungdaum.vnggames.com/
+[tech-detect:php] [http] [info] https://cungdaum.vnggames.com/
+[apache-version-detect] [http] [info] https://cungdaum.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://zsm.vnggames.com/
+[tech-detect:apache] [http] [info] https://zsm.vnggames.com/
+[tech-detect:php] [http] [info] https://zsm.vnggames.com/
+[apache-version-detect] [http] [info] https://zsm.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://nikkith.vnggames.com/
+[tech-detect:apache] [http] [info] https://nikkith.vnggames.com/
+[tech-detect:php] [http] [info] https://nikkith.vnggames.com/
+[apache-version-detect] [http] [info] https://nikkith.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://ngoalong.vnggames.com/
+[tech-detect:apache] [http] [info] https://ngoalong.vnggames.com/
+[tech-detect:php] [http] [info] https://ngoalong.vnggames.com/
+[apache-version-detect] [http] [info] https://ngoalong.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://ktm.vnggames.com/
+[tech-detect:apache] [http] [info] https://ktm.vnggames.com/
+[tech-detect:php] [http] [info] https://ktm.vnggames.com/
+[apache-version-detect] [http] [info] https://ktm.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://mus.vnggames.com/
+[tech-detect:apache] [http] [info] https://mus.vnggames.com/
+[tech-detect:php] [http] [info] https://mus.vnggames.com/
+[apache-version-detect] [http] [info] https://mus.vnggames.com [Apache]
+[waf-detect:apachegeneric] [http] [info] https://www.vnggames.com/
+[tech-detect:apache] [http] [info] https://www.vnggames.com/
+[tech-detect:php] [http] [info] https://www.vnggames.com/
+[waf-detect:apachegeneric] [http] [info] https://vltkm.vnggames.com/
+[tech-detect:apache] [http] [info] https://vltkm.vnggames.com/
+[tech-detect:php] [http] [info] https://vltkm.vnggames.com/
+[apache-version-detect] [http] [info] https://vltkm.vnggames.com [Apache]

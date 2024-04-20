@@ -1,0 +1,58 @@
+- model: scanEngine.enginetype
+  pk: 1
+  fields:
+    engine_name: Full Scan
+    subdomain_discovery: true
+    dir_file_search: true
+    port_scan: true
+    fetch_url: true
+    vulnerability_scan: true
+    default_engine: true
+    yaml_configuration:
+      "subdomain_discovery:\r\n    uses_tool: [ all ]\r\n    thread: 10\r\n\r\nport_scan:\r\n\
+      \    ports: [ top-100 ]\r\n    rate: 100\r\n\r\nvisual_identification:\r\n\
+      \    port: xlarge\r\n    thread: 2\r\n    http_timeout: 3000\r\n    screenshot_timeout:\
+      \ 30000\r\n    scan_timeout: 100\r\n\r\ndir_file_search:\r\n    extensions:\
+      \ [ php,asp,aspx,txt,conf,db,sql,json ]\r\n    recursive: false\r\n    recursive_level:\
+      \ 1\r\n    thread: 100\r\n    wordlist: default\r\n\r\nfetch_url:\r\n    uses_tool:\
+      \ [ all ]\r\n    intensity: normal\r\n\r\nvulnerability_scan:\r\n\
+      \    concurrent: 10\r\n    template: [all]\r\n    severity: [ all ]"
+
+- model: scanEngine.enginetype
+  pk: 2
+  fields:
+    engine_name: Recon Only
+    subdomain_discovery: true
+    dir_file_search: false
+    port_scan: true
+    fetch_url: true
+    yaml_configuration:
+      "subdomain_discovery:\r\n    uses_tool: [ all ]\r\n    thread: 10\r\n\r\nport_scan:\r\n\
+      \    ports: [ top-100 ]\r\n    rate: 100\r\n\r\nvisual_identification:\r\n\
+      \    port: xlarge\r\n    thread: 2\r\n    http_timeout: 3000\r\n    screenshot_timeout:\
+      \ 30000\r\n    scan_timeout: 100\r\n\r\ndir_file_search:\r\n    extensions:\
+      \ [ php,asp,aspx,txt,conf,db,sql,json ]\r\n    recursive: false\r\n    recursive_level:\
+      \ 1\r\n    thread: 100\r\n    wordlist: default\r\n\r\nfetch_url:\r\n    uses_tool:\
+      \ [ all ]\r\n    intensity: normal\r\n\r\nvulnerability_scan:\r\n\
+      \    concurrent: 10\r\n    template: [all]\r\n    severity: [ all ]"
+    vulnerability_scan: false
+    default_engine: true
+- model: scanEngine.enginetype
+  pk: 3
+  fields:
+    engine_name: Domain Only
+    subdomain_discovery: false
+    dir_file_search: true
+    port_scan: true
+    fetch_url: true
+    yaml_configuration:
+      "subdomain_discovery:\r\n    uses_tool: [ all ]\r\n    thread: 10\r\n\r\nport_scan:\r\n\
+      \    ports: [ top-100 ]\r\n    rate: 100\r\n\r\nvisual_identification:\r\n\
+      \    port: xlarge\r\n    thread: 2\r\n    http_timeout: 3000\r\n    screenshot_timeout:\
+      \ 30000\r\n    scan_timeout: 100\r\n\r\ndir_file_search:\r\n    extensions:\
+      \ [ php,asp,aspx,txt,conf,db,sql,json ]\r\n    recursive: false\r\n    recursive_level:\
+      \ 1\r\n    thread: 100\r\n    wordlist: default\r\n\r\nfetch_url:\r\n    uses_tool:\
+      \ [ all ]\r\n    intensity: normal\r\n\r\nvulnerability_scan:\r\n\
+      \    concurrent: 10\r\n    template: [all]\r\n    severity: [ all ]"
+    vulnerability_scan: true
+    default_engine: true

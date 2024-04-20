@@ -1,0 +1,430 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+Generate Signature
+{% endblock title %}
+
+
+{% block custom_js_css_link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static 'plugins/sweetalerts/promise-polyfill.js' %}"></script>
+<link href="{% static 'plugins/sweetalerts/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'plugins/sweetalerts/sweetalert.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/css/components/custom-sweetalert.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/css/components/custom-modal.css' %}" rel="stylesheet" type="text/css" />
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+Generate Signature
+{% endblock breadcrumb_title %}
+
+{% block main_content %}
+
+<div class="row mt-2 container-fluid">
+    {% csrf_token %}
+    <div class="col-md-7">
+        <div class="row pl-2">
+            <div class="col-6">
+                <h2 class="d-inline-block">Generator</h2>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-primary float-right" id="generate-btn">Generate</button>
+            </div>
+        </div>
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">
+                                Info
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Id</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Unique Signature Id"
+                                    aria-label="signid" aria-describedby="signid" name="id" id="signid">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="type">Type</span>
+                                </div>
+                                <select class="browser-default custom-select" id="signtype" name="type">
+                                    <option selected value="list">List</option>
+                                    <option value="fuzz">Fuzz</option>
+                                    <!-- <option value="dns">DNS</option> -->
+                                </select>
+                            </div>
+                            <div class="donce-check">
+                                <input type="checkbox" id="donce" name="donce">
+                                <label for="donce"> Donce</label>
+                            </div>
+                            <fieldset>
+                                <legend>Signature Info:</legend>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Signature Name"
+                                        aria-label="signname" aria-describedby="signname" name="name" id="signname">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Risk</span>
+                                    </div>
+                                    <select class="browser-default custom-select" id="signrisk" name="risk">
+                                        <option selected value="Info">Information</option>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="High">High</option>
+                                        <option value="Critical">Critical</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Confident</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Confident"
+                                        aria-label="signconf" aria-describedby="signconf" name="confidence" id="signconf">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">OS</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Target OS"
+                                        aria-label="signos" aria-describedby="signos" name="os" id="signos">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Tech</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Target Technology"
+                                        aria-label="signtech" aria-describedby="signtech" name="tech" id="signtech">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                aria-expanded="false" aria-controls="collapseTwo">
+                                Request Component
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="requests">
+                                <div class="single-request" style="display: none;" id="request-clone">
+                                    <div class="signature-conditions">
+                                        <div class="condition-group mb-3">
+                                            <div class="row m-0">
+                                                <div class="col-3">Condition</div>
+                                                <div class="col-7 p-0">
+                                                    <textarea class="signcondition form-control"></textarea>
+                                                </div>
+                                                <div class="col-2 p-0">
+                                                    <button class="btn float-right" id="add-condition-btn"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="condition-group mb-3" id="clone-condition-0" style="display: none;">
+                                            <div class="row m-0">
+                                                <div class="col-3"></div>
+                                                <div class="col-7 p-0">
+                                                    <textarea class="signcondition form-control"></textarea>
+                                                </div>
+                                                <div class="col-2 p-0">
+                                                    <button class="btn float-right" id="delete-condition-btn"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="checkbox" id="redirect" name="redirect">
+                                        <label for="redirect"> Redirect</label>
+                                    </div>
+                                    <div class="list-signature">
+                                        <div class="mb-3">
+                                            <input type="checkbox" id="signraw" name="signraw"
+                                                onclick="changeHttpRawState(this)">
+                                            <label for="signraw">Raw Request</label>
+                                        </div>
+                                        <textarea id="raw-request" class="form-control mb-3" style="display: none;"
+                                            name="raw"></textarea>
+                                        <div id="manual-request">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Method</span>
+                                                </div>
+                                                <select class="browser-default custom-select" id="signmethod" name="method">
+                                                    <option selected value="">Choose a method</option>
+                                                    <option value="GET">GET</option>
+                                                    <option value="POST">POST</option>
+                                                    <option value="PUT">PUT</option>
+                                                    <option value="DELETE">DELETE</option>
+                                                    <option value="HEAD">HEAD</option>
+                                                    <option value="CONNECT">CONNECT</option>
+                                                    <option value="OPTIONS">OPTIONS</option>
+                                                    <option value="TRACE">TRACE</option>
+                                                    <option value="PATCH">PATCH</option>
+                                                </select>
+                                            </div>
+                                            <div class="signature-path">
+                                                <div class="path-group mb-3">
+                                                    <div class="row m-0">
+                                                        <div class="col-3">URL</div>
+                                                        <div class="col-7 p-0">
+                                                            <input type="text" class="signpath form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="signature-headers">
+                                                <div class="headers-group mb-3">
+                                                    <div class="row m-0">
+                                                        <div class="col-3">Headers</div>
+                                                        <div class="col-7 p-0 input-group">
+                                                            <input type="text" class="form-control key" placeholder="Key">
+                                                            <input type="text" class="form-control value" placeholder="Value">
+                                                        </div>
+                                                        <div class="col-2 p-0">
+                                                            <button class="btn float-right" id="add-header-btn"><i
+                                                                    class="fa fa-plus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="headers-group mb-3" id="clone-header-0" style="display: none;">
+                                                    <div class="row m-0">
+                                                        <div class="col-3"></div>
+                                                        <div class="col-7 p-0 input-group">
+                                                            <input type="text" class="form-control key" placeholder="Key">
+                                                            <input type="text" class="form-control value" placeholder="Value">
+                                                        </div>
+                                                        <div class="col-2 p-0">
+                                                            <button class="btn float-right" id="delete-header-btn"><i
+                                                                    class="fa fa-trash"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="signature-body mb-3">
+                                                <div class="row m-0">
+                                                    <div class="col-3">Body</div>
+                                                    <div class="col-9 p-0">
+                                                        <textarea class="body-content form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fuzz-signature" style="display: none;">
+                                        <div class="signature-generators">
+                                            <div class="gen-group mb-3">
+                                                <div class="row m-0">
+                                                    <div class="col-3">Generator</div>
+                                                    <div class="col-7 p-0">
+                                                        <textarea class="signgen form-control"></textarea>
+                                                    </div>
+                                                    <div class="col-2 p-0">
+                                                        <button class="btn float-right" id="add-gen-btn"><i
+                                                                class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="gen-group mb-3" id="clone-gen-0" style="display: none;">
+                                                <div class="row m-0">
+                                                    <div class="col-3"></div>
+                                                    <div class="col-7 p-0">
+                                                        <textarea class="signgen form-control"></textarea>
+                                                    </div>
+                                                    <div class="col-2 p-0">
+                                                        <button class="btn float-right" id="delete-gen-btn"><i
+                                                                class="fa fa-trash"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="signature-detects">
+                                        <div class="detect-group mb-3">
+                                            <div class="row m-0">
+                                                <div class="col-3">Detect</div>
+                                                <div class="col-3 p-0">
+                                                    <input type="number" class="form-control detect-status" placeholder="Status" min="100" max="599">
+                                                </div>
+                                                <div class="col-4 p-0">
+                                                    <input type="text" class="form-control detect-string" placeholder="Search String">
+                                                </div>
+                                                <div class="col-2 p-0">
+                                                    <button class="btn float-right" id="add-detect-btn"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div>
+                                                <div class="col-3"></div>
+                                                <div class="col-7 p-0 mt-2">
+                                                    <textarea class="custom-detect form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="detect-group mb-3" id="clone-detect-0" style="display: none;">
+                                            <div class="row m-0">
+                                                <div class="col-3"></div>
+                                                <div class="col-3 p-0">
+                                                    <input type="number" class="form-control detect-status" placeholder="Status" min="100" max="599">
+                                                </div>
+                                                <div class="col-4 p-0">
+                                                    <input type="text" class="form-control detect-string" placeholder="Search String">
+                                                </div>
+                                                <div class="col-2 p-0">
+                                                    <button class="btn float-right" id="delete-detect-btn"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </div>
+                                                <div class="col-3"></div>
+                                                <div class="col-7 p-0 mt-2">
+                                                    <textarea class="custom-detect form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="signature-conclusions">
+                                        <div class="conclusion-group mb-3">
+                                            <div class="row m-0">
+                                                <div class="col-3">Conclusion</div>
+                                                <div class="col-7 p-0">
+                                                    <textarea class="signconclusion form-control"></textarea>
+                                                </div>
+                                                <div class="col-2 p-0">
+                                                    <button class="btn float-right" id="add-conclusion-btn"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="conclusion-group mb-3" id="clone-conclusion-0" style="display: none;">
+                                            <div class="row m-0">
+                                                <div class="col-3"></div>
+                                                <div class="col-7 p-0">
+                                                    <textarea class="signconclusion form-control"></textarea>
+                                                </div>
+                                                <div class="col-2 p-0">
+                                                    <button class="btn float-right" id="delete-conclusion-btn"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="middle-group mb-3">
+                                        <div class="row m-0">
+                                            <div class="col-3" style="font-size: 14px;">Middleware</div>
+                                            <div class="col-9 p-0">
+                                                <textarea class="signmid form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="add-request-btn">Add New Request</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse"
+                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Others
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                        data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="variables">
+                                <div class="variable-group mb-3">
+                                    <div class="row m-0">
+                                        <div class="col-3">Variables</div>
+                                        <div class="col-7 p-0 input-group">
+                                            <input type="text" class="form-control name" placeholder="Name">
+                                            <input type="text" class="form-control value" placeholder="Value">
+                                        </div>
+                                        <div class="col-2 p-0">
+                                            <button class="btn float-right" id="add-variable-btn"><i
+                                                    class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="variable-group mb-3" id="clone-variable-0" style="display: none;">
+                                    <div class="row m-0">
+                                        <div class="col-3"></div>
+                                        <div class="col-7 p-0 input-group">
+                                            <input type="text" class="form-control name" placeholder="Name">
+                                            <textarea type="text" class="form-control value" placeholder="Value"></textarea>
+                                        </div>
+                                        <div class="col-2 p-0">
+                                            <button class="btn float-right" id="delete-variable-btn"><i
+                                                    class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payloads">
+                                <div class="payload-group mb-3">
+                                    <div class="row m-0">
+                                        <div class="col-3">Payload</div>
+                                        <div class="col-7 p-0">
+                                            <textarea class="signpayload form-control" id="payload-text"></textarea>
+                                        </div>
+                                        <div class="col-2 p-0">
+                                            <input id="payload-input-file" type="file" style="display: none;" />
+                                            <input type="button" class="btn secondary-btn w-100" value="Choose..." onclick="document.getElementById('payload-input-file').click();" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="payload-group mb-3" id="clone-payload-0" style="display: none;">
+                                    <div class="row m-0">
+                                        <div class="col-3"></div>
+                                        <div class="col-7 p-0">
+                                            <input type="text" class="signpayload form-control">
+                                        </div>
+                                        <div class="col-2 p-0">
+                                            <input id="payload-input-file" type="file" style="display: none;" />
+                                            <input type="button" value="Choose Files!" onclick="document.getElementById('payload-input-file').click();" />
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="col-md-5">
+        <h2>Content</h2>
+        <div class="mb-3">
+            <input type="checkbox" id="input-raw" onclick="changeState(this)">
+            <label for="input-raw">Edit raw</label>
+        </div>
+        <textarea id="raw-input" class="form-control" disabled rows="10"></textarea>
+        <button id="submit-raw-btn" type="button" class="btn btn-primary float-right d-none mt-3" onclick="submitRawSignature()">Submit</button>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block page_level_script %}
+<script src="{% static 'genSign/js/custom_gen_sign.js' %}"></script>
+<script src="{% static 'plugins/table/datatable/datatables.js' %}"></script>
+<script src="{% static 'plugins/sweetalerts/sweetalert2.min.js' %}"></script>
+<script src="{% static 'plugins/sweetalerts/custom-sweetalert.js' %}"></script>
+{% endblock page_level_script %}

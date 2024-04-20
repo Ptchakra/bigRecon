@@ -1,0 +1,102 @@
+version: "3.3"
+
+services:
+  db:
+    restart: always
+    # platform: linux/amd64
+    platform: linux/arm64/v8
+    image: "postgres:12.3-alpine"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - rengine_network
+  web:
+    restart: always
+    image: big-recon:latest
+    build: .
+    # platform: linux/amd64
+    # command: gunicorn bigRecon.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/tools/scan_results
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+    networks:
+      rengine_network:
+        aliases:
+          - rengine
+  # proxy:
+  #   restart: always
+  #   image: nginx:alpine
+  #   platform: linux/arm64/v8
+  #   # platform: linux/amd64
+  #   ports:
+  #     - 80:80/tcp
+  #     - 443:4343/tcp
+  #   depends_on:
+  #     - web
+  #     - db
+  #     - redis
+  #   secrets:
+  #     - source: proxy.ca
+  #       target: /etc/nginx/certs/rengine_chain.pem
+  #     - source: proxy.cert
+  #       target: /etc/nginx/certs/rengine.pem
+  #     - source: proxy.key
+  #       target: /etc/nginx/certs/rengine_rsa.key
+  #   volumes:
+  #     - ./config/nginx/rengine.conf:/etc/nginx/conf.d/rengine.conf:ro
+  #     - static_volume:/app/staticfiles
+  #     - media_volume:/app/tools/scan_results
+  #   networks:
+  #     - rengine_network
+  redis:
+    image: redis:alpine
+    platform: linux/arm64/v8
+    # platform: linux/amd64
+    networks:
+      - rengine_network
+  celery:
+    build: .
+    # command: celery -A bigRecon worker -l INFO -Q doScan,doJaelesScan,subdomain_file_task,run_xray,
+    entrypoint: /usr/src/app/celery-entrypoint.sh
+    # platform: linux/amd64
+    platform: linux/amd64
+    environment:
+      - DEBUG=1
+    volumes:
+      - ./celery_storage:/celery_storage
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/tools/scan_results
+    depends_on:
+      - redis
+    networks:
+      - rengine_network
+  celery-beat:
+    build: .
+    platform: linux/amd64
+    command: celery -A bigRecon beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    environment:
+      - DEBUG=1
+    depends_on:
+      - db
+      - redis
+    networks:
+      - rengine_network
+
+networks:
+  rengine_network:
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
