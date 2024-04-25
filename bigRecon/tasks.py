@@ -486,7 +486,8 @@ def doScan(domain_id, scan_history_id, scan_type, engine_type):
                 nmap_command = f"nmap -sV --top-ports 1000 -Pn -sT --open --max-rate 5000 -iL {alive_ip_file} -oN {port_results_file}"
             else:
                 nmap_command = f"nmap -sV -p - -Pn -sT --open --max-rate 5000 -iL {alive_ip_file} -oN {port_results_file}"
-            if yaml_configuration["port_scan"]["exclude_ports"]:
+
+            if yaml_configuration.get("port_scan", {}).get("exclude_ports"):
                 exclude_ports = ",".join(
                     str(port)
                     for port in yaml_configuration["port_scan"]["exclude_ports"]
